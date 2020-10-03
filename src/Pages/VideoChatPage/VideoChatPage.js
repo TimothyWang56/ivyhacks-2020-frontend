@@ -13,13 +13,10 @@ class VideoChatPage extends React.Component {
         this.iframeRef = React.createRef();
         this.state = {
             time: 0,
-            loading: true,
         }
-        this.changeLoad = this.changeLoad.bind(this);
     }
 
-    async componentDidUpdate() {
-        if (this.state.loading) return;
+    async componentDidMount() {
         this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
         this.callFrame.join({ url: "https://ivyhacks-sit.daily.co/WGnRLqx7LQ1HqE9XtSvp" });
 
@@ -51,36 +48,21 @@ class VideoChatPage extends React.Component {
             .join(':');
       }
 
-    changeLoad() {
-        this.setState(state => ({
-            loading: false
-          }));
-    }
-
     render() {
-        const { loading } = this.state;
-        const renderLoading = () => {
-            if(loading){
-              return <button onClick={this.changeLoad}>Loading</button>
-            } else{
-              return (<><div className="topic-list">
-              <TopicList topics={["Interests", "Hobbies", "Games", "Food", "Work", "Travel"]}/>
-          </div>
-          <div className="leave-button" onClick={() => console.log("leave pressed")}>LEAVE</div>
-          <iframe className="video-frame"
-              title="video call iframe"
-              ref={this.iframeRef}
-              allow="camera; microphone; fullscreen"
-          />
-          <div className="video-timer">
-              {this.formatTime(this.state.time)}
-          </div></>)
-            }
-          }
         return (
             <div className="video-page-container">
-                hello
-                {renderLoading()}
+                <div className="topic-list">
+                    <TopicList topics={["Interests", "Hobbies", "Games", "Food", "Work", "Travel"]}/>
+                </div>
+                <div className="leave-button" onClick={() => console.log("leave pressed")}>LEAVE</div>
+                <iframe className="video-frame"
+                    title="video call iframe"
+                    ref={this.iframeRef}
+                    allow="camera; microphone; fullscreen"
+                />
+                <div className="video-timer">
+                    {this.formatTime(this.state.time)}
+                </div>
            </div>
         );
     }
