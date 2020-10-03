@@ -4,7 +4,8 @@ import DailyIFrame from '@daily-co/daily-js';
 import TopicList from '../../Components/TopicList/TopicList';
 import SocketIOClient from 'socket.io-client';
 import { socket } from "./Header";
-const ENDPOINT = "localhost:2000";
+// const ENDPOINT = "localhost:2000";
+const ENDPOINT = "192.168.99.194:2000"
 const APIKEY = "";
 // var socket;
 class VideoChatPage extends React.Component {
