@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    font-family: Georgia;
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
+}
+
+body, html, .page {
+    min-height: 100vh;
+    min-width: 100vw;
+    max-height: 100vh;
+    max-width: 100vw;
+    margin: 0em;
+    padding: 0em;
+    overflow-x: hidden;
+}
