@@ -1,0 +1,10 @@
+@import '../../main.scss';
+
+.topic-list-container {
+    height: 100%;
+    width: 100%;
+
+    .topic {
+        padding-bottom: 0.2em;
+    }
+}
