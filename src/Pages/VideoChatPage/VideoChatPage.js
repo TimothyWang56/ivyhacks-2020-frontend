@@ -4,6 +4,7 @@ import DailyIFrame from '@daily-co/daily-js';
 import TopicList from '../../Components/TopicList/TopicList';
 import SocketIOClient from 'socket.io-client';
 import { socket } from "./Header";
+import banana from "./banana.gif";
 
 class VideoChatPage extends React.Component {
     constructor(props) {
@@ -17,8 +18,15 @@ class VideoChatPage extends React.Component {
     }
 
     matched = () => this.setState({status: "video"});
-    formComplete = () => this.setState({status: "matching"});
-    setUrl = (data) => this.setState({url: data});
+    formComplete = () => {
+        this.setState({status: "matching"});
+        socket.emit("surveyComplete");
+        console.log("sent survey");
+    }
+    setUrl = (data) => {
+        this.setState({url: data})
+        console.log(data)
+    };
     
     async componentDidMount() { 
         socket.on("matched", this.setUrl);
@@ -72,7 +80,7 @@ class VideoChatPage extends React.Component {
             if (status === "form") {
                 return <button onClick={this.formComplete}>submit</button>
             } if(status === "matching"){
-              return <div>status</div>
+              return <img src={banana} alt="banana spin"></img>
             } else{
               return (<><div className="topic-list">
               <TopicList topics={["Interests", "Hobbies", "Games", "Food", "Work", "Travel"]}/>
@@ -90,7 +98,6 @@ class VideoChatPage extends React.Component {
           }
         return (
             <div className="video-page-container">
-                hello
                 {renderStatus()}
            </div>
         );
