@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial;
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
+}
+
+body, html, .page {
+    margin: 0em;
+    padding: 0em;
+    overflow-x: hidden;
+}

@@ -9,8 +9,10 @@ import {
 
 import HomePage from './Pages/HomePage/HomePage';
 import VideoChatPage from './Pages/VideoChatPage/VideoChatPage';
-
+import { Header } from './Pages/VideoChatPage/Header';
 ReactDOM.render(
+    <div>
+        <Header/>
     <React.StrictMode>
         <Router>
             <Switch>
@@ -22,6 +24,7 @@ ReactDOM.render(
                 </Route>
             </Switch>
         </Router>
-    </React.StrictMode>,
+    </React.StrictMode>
+    </div>,
     document.getElementById('root')
 );
