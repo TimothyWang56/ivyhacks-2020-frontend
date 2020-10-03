@@ -5,7 +5,6 @@ import TopicList from '../../Components/TopicList/TopicList';
 import SocketIOClient from 'socket.io-client';
 
 const ENDPOINT = "localhost:2000";
-const APIKEY = "";
 
 class VideoChatPage extends React.Component {
     constructor(props) {
@@ -18,24 +17,14 @@ class VideoChatPage extends React.Component {
 
     async componentDidMount() {
         this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
-        this.callFrame.join({ url: "https://ivyhacks-sit.daily.co/WGnRLqx7LQ1HqE9XtSvp" });
 
-        // move to REDUX eventually
-        // const socket = SocketIOClient(ENDPOINT);
+        const socket = SocketIOClient(ENDPOINT);
 
-        // socket.on("videoCallConnection", function(data) {
-        //     this.callFrame.join({ url: data.url });
-        //     this.setState({ time: 0 });
-        //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-        // })
-
-        // move to backend later
-        // const res = await fetch("https://api.daily.co/v1/rooms", {
-        //     method: "post",
-        //     headers: {
-        //         Authorization: "Bearer " + APIKEY,
-        //     },
-        // });
+        socket.on("videoCallConnection", function(data) {
+            this.callFrame.join({ url: data.url });
+            this.setState({ time: 0 });
+            this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+        })
     }
     
     formatTime(secs) {
