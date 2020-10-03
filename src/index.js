@@ -9,7 +9,6 @@ import {
 
 import HomePage from './Pages/HomePage/HomePage';
 import VideoChatPage from './Pages/VideoChatPage/VideoChatPage';
-
 ReactDOM.render(
     <React.StrictMode>
         <Router>
