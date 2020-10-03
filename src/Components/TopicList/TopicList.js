@@ -13,6 +13,7 @@ class TopicList extends React.Component {
     render() {
         return (
             <div className="topic-list-container">
+                <div className="list-title">List of Topics</div>
                 {this.generateTopics()}
             </div>
         );

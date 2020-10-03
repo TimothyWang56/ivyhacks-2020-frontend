@@ -3,6 +3,12 @@
 .topic-list-container {
     height: 100%;
     width: 100%;
+    text-align: center;
+
+    .list-title {
+        font-size: 2em;
+        padding-bottom: 0.5em;
+    }
 
     .topic {
         padding-bottom: 0.2em;
