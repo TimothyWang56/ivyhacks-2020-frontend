@@ -3,6 +3,7 @@
 .video-page-container {
     width: 100vw;
     height: 100vh;
+    padding: 2em 2em 0em 0em;
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr min-content;
@@ -12,9 +13,8 @@
     .topic-list {
         grid-column: 1;
         grid-row: 1;
-        width: 90%;
-        height: 90%;
-        padding: 0em 1em;
+        width: 100%;
+        height: 100%;
     }
 
     .leave-button {
@@ -28,8 +28,8 @@
     .video-frame {
         grid-column: 2;
         grid-row: 1;
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
     }
 
     .video-timer {
