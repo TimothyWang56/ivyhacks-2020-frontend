@@ -57,53 +57,34 @@ class VideoChatPage extends React.Component {
     };
   }
 
-    matched = () => this.setState({status: "video"});
+    // matched = () => this.setState({status: "video"});
     formComplete = () => {
         this.setState({status: "matching"});
         socket.emit("surveyComplete");
         console.log("sent survey");
     }
     setUrl = (data) => {
-        this.setState({url: data});
+        this.setState({url: data, status: "video"});
         this.updateIframe();
         console.log(data);
     };
-    
 
-
-  async componentDidMount() {
-    socket.on("matched", this.setUrl);
-    socket.on("matched", this.matched);
-    // socket.on("videoCallConnection", function(data) {
-    //     this.callFrame.join({ url: data.url });
-    //     this.setState({ time: 0 });
-    //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-    // })
-
-    // const res = await fetch("https://api.daily.co/v1/rooms", {
-    //     method: "post",
-    //     headers: {
-    //         Authorization: "Bearer " + APIKEY,
-    //     },
-    // });
-  }
-  async componentWillUnmount() {
-    socket.off("matched");
-  }
 
   async updateIframe() {
-    if (this.state.status) return;
+    if (this.state.time !== 0) return;
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
-
-    // const socket = SocketIOClient(ENDPOINT);
-
-    // socket.on("videoCallConnection", function(data) {
-    //     this.callFrame.join({ url: data.url });
-    //     this.setState({ time: 0 });
-    //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-    // })
+    setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
   }
+    
+    async componentDidMount() {
+        socket.on("matched", this.setUrl);
+    }
+
+    async componentWillUnmount() {
+        socket.off("matched");
+    }
+
 
   formatTime(secs) {
     let hours = Math.floor(secs / 3600);
