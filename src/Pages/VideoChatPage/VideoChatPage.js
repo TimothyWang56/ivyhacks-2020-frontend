@@ -4,28 +4,25 @@ import DailyIFrame from '@daily-co/daily-js';
 import TopicList from '../../Components/TopicList/TopicList';
 import SocketIOClient from 'socket.io-client';
 import { socket } from "./Header";
-// const ENDPOINT = "localhost:2000";
-const ENDPOINT = "192.168.99.194:2000"
-const APIKEY = "";
-// var socket;
+
 class VideoChatPage extends React.Component {
     constructor(props) {
         super(props);
         this.iframeRef = React.createRef();
         this.state = {
             time: 0,
-            status: true,
+            status: "form",
             url: "",
         }
-        // socket = SocketIOClient(ENDPOINT);
     }
 
-    changeLoad = () => this.setState({status: false});
+    matched = () => this.setState({status: "video"});
+    formComplete = () => this.setState({status: "matching"});
     setUrl = (data) => this.setState({url: data});
-
+    
     async componentDidMount() { 
         socket.on("matched", this.setUrl);
-        socket.on("matched", this.changeLoad);
+        socket.on("matched", this.matched);
         // socket.on("videoCallConnection", function(data) {
         //     this.callFrame.join({ url: data.url });
         //     this.setState({ time: 0 });
@@ -72,7 +69,9 @@ class VideoChatPage extends React.Component {
     render() {
         const { status } = this.state;
         const renderStatus = () => {
-            if(status){
+            if (status === "form") {
+                return <button onClick={this.formComplete}>submit</button>
+            } if(status === "matching"){
               return <div>status</div>
             } else{
               return (<><div className="topic-list">
