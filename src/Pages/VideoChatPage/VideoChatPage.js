@@ -16,42 +16,22 @@ class VideoChatPage extends React.Component {
         }
     }
 
-    matched = () => this.setState({status: "video"});
     formComplete = () => this.setState({status: "matching"});
-    setUrl = (data) => this.setState({url: data});
+    setUrl = (data) => {this.setState({url: data, status: "video"}); this.updateIFrame();};
     
-    async componentDidMount() { 
+    async componentDidMount() {
         socket.on("matched", this.setUrl);
-        socket.on("matched", this.matched);
-        // socket.on("videoCallConnection", function(data) {
-        //     this.callFrame.join({ url: data.url });
-        //     this.setState({ time: 0 });
-        //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-        // })
-
-        // const res = await fetch("https://api.daily.co/v1/rooms", {
-        //     method: "post",
-        //     headers: {
-        //         Authorization: "Bearer " + APIKEY,
-        //     },
-        // });
     }
+
     async componentWillUnmount() {
         socket.off("matched");
     }
 
-    async componentDidUpdate() {
-        if (this.state.status) return;
+    updateIFrame() {
+        if (this.state.time !== 0) return;
         this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
         this.callFrame.join({ url: this.state.url });
-
-        // const socket = SocketIOClient(ENDPOINT);
-
-        // socket.on("videoCallConnection", function(data) {
-        //     this.callFrame.join({ url: data.url });
-        //     this.setState({ time: 0 });
-        //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-        // })
+        setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
     }
     
     formatTime(secs) {
@@ -71,9 +51,9 @@ class VideoChatPage extends React.Component {
         const renderStatus = () => {
             if (status === "form") {
                 return <button onClick={this.formComplete}>submit</button>
-            } if(status === "matching"){
+            } if (status === "matching"){
               return <div>status</div>
-            } else{
+            } else {
               return (<><div className="topic-list">
               <TopicList topics={["Interests", "Hobbies", "Games", "Food", "Work", "Travel"]}/>
           </div>
