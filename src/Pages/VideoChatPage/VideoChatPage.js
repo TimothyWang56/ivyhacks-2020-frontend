@@ -44,17 +44,17 @@ class VideoChatPage extends React.Component {
     }
 
     async componentDidUpdate() {
-        if (this.state.status) return;
-        this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
-        this.callFrame.join({ url: this.state.url });
+        // if (this.state.status) return;
+        // this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
+        // this.callFrame.join({ url: this.state.url });
 
-        const socket = SocketIOClient(ENDPOINT);
+        // const socket = SocketIOClient(ENDPOINT);
 
-        socket.on("videoCallConnection", function(data) {
-            this.callFrame.join({ url: data.url });
-            this.setState({ time: 0 });
-            this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-        })
+        // socket.on("videoCallConnection", function(data) {
+        //     this.callFrame.join({ url: data.url });
+        //     this.setState({ time: 0 });
+        //     this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+        // })
     }
     
     formatTime(secs) {
