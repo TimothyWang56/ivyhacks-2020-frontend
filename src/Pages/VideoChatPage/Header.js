@@ -8,7 +8,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: 'http://localhost:2000/'
+      endpoint: 'http://butchery.herokuapp.com/'
     };
     socket = socketIOClient(this.state.endpoint);
   }
