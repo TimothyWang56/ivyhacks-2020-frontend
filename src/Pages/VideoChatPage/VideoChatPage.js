@@ -24,8 +24,8 @@ class VideoChatPage extends React.Component {
     setUrl = (data) => this.setState({url: data});
 
     async componentDidMount() { 
-        socket.on("matched", this.setUrl);
-        socket.on("matched", this.changeLoad);
+        // socket.on("matched", this.setUrl);
+        // socket.on("matched", this.changeLoad);
         // socket.on("videoCallConnection", function(data) {
         //     this.callFrame.join({ url: data.url });
         //     this.setState({ time: 0 });
@@ -40,7 +40,7 @@ class VideoChatPage extends React.Component {
         // });
     }
     async componentWillUnmount() {
-        socket.off("matched");
+        // socket.off("matched");
     }
 
     async componentDidUpdate() {
