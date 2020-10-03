@@ -10,7 +10,7 @@ class Header extends Component {
     this.state = {
       endpoint: 'https://butchery.herokuapp.com/'
     };
-    socket = socketIOClient(this.state.endpoint, { transports: ["websocket"]});
+    socket = socketIOClient(this.state.endpoint);
   }
   render() {
     return <div>header (holds socket)</div>
