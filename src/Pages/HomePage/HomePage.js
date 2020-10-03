@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Box, TextField, Button, Icon } from "@material-ui/core";
 import "./HomePage.scss";
-import Illustration from "../../Assets/homepage.png";
+import Illustration from "../../assets/homepage.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
