@@ -64,8 +64,9 @@ class VideoChatPage extends React.Component {
         console.log("sent survey");
     }
     setUrl = (data) => {
-        this.setState({url: data})
-        console.log(data)
+        this.setState({url: data});
+        this.updateIframe();
+        console.log(data);
     };
     
 
@@ -90,7 +91,7 @@ class VideoChatPage extends React.Component {
     socket.off("matched");
   }
 
-  async componentDidUpdate() {
+  async updateIframe() {
     if (this.state.status) return;
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
