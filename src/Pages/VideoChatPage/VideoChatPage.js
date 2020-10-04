@@ -1,17 +1,16 @@
 import React from "react";
-import "./VideoChatPage.scss";
 import DailyIFrame from "@daily-co/daily-js";
 import TopicList from "../../Components/TopicList/TopicList";
 import { socket } from "./Header";
 import banana from "./banana.gif";
 import { Grid, Box, TextField, Button } from "@material-ui/core";
-import "./HomePage.scss";
 import Illustration from "../../assets/homepage.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import "./VideoChatPage.scss";
 
 const question1 = [
   {
@@ -73,6 +72,36 @@ const question4 = [
   },
 ];
 
+const question5 = [
+  {
+    value: "Waffles",
+  },
+  {
+    value: "Pancakes",
+  },
+  {
+    value: "Crepes",
+  },
+  {
+    value: "French Toast",
+  },
+];
+
+const question6 = [
+  {
+    value: "Student",
+  },
+  {
+    value: "Professional",
+  },
+  {
+    value: "Other",
+  },
+  {
+    value: "Anyone",
+  },
+];
+
 class VideoChatPage extends React.Component {
   constructor(props) {
     super(props);
@@ -87,6 +116,8 @@ class VideoChatPage extends React.Component {
       beatle: "",
       food: "",
       otherUser: "",
+      breakfast: "",
+      preference: "",
       userRes: {},
       otherUserRes: {},
       overlappingResponses: {},
@@ -109,12 +140,22 @@ class VideoChatPage extends React.Component {
       return;
     }
     this.setState({ status: "matching" });
-    const picked = (({ username, duration, meat, beatle, food }) => ({
+    const picked = (({
       username,
       duration,
       meat,
       beatle,
       food,
+      breakfast,
+      preference,
+    }) => ({
+      username,
+      duration,
+      meat,
+      beatle,
+      food,
+      breakfast,
+      preference,
     }))(this.state);
     socket.emit("surveyComplete", picked);
     console.log("sent survey");
@@ -206,7 +247,15 @@ class VideoChatPage extends React.Component {
   };
 
   handleFoodChange = (e) => {
-    this.setState({ food: e.target.value, status: "getMatched" });
+    this.setState({ food: e.target.value, status: "question5" });
+  };
+
+  handleBreakfastChange = (e) => {
+    this.setState({ breakfast: e.target.value, status: "question6" });
+  };
+
+  handlePreferenceChange = (e) => {
+    this.setState({ preference: e.target.value, status: "getMatched" });
   };
 
   inputName = () => {
@@ -237,8 +286,6 @@ class VideoChatPage extends React.Component {
             <Box
               style={{
                 display: "flex",
-                // alignItems: "center",
-                // alignContent: "center",
               }}
             >
               <img
@@ -281,9 +328,8 @@ class VideoChatPage extends React.Component {
             style={{ minHeight: "100vh" }}
           >
             <Grid item xs={10}>
-              <div>How long do you plan on eating for?</div>
+              <div>How long do you plan on eating for (minutes)?</div>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Duration</FormLabel>
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
@@ -318,7 +364,6 @@ class VideoChatPage extends React.Component {
             <Grid item xs={10}>
               <div>Pick your preferred lunch meat</div>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Meat</FormLabel>
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
@@ -353,7 +398,6 @@ class VideoChatPage extends React.Component {
             <Grid item xs={10}>
               <div>Who's your favorite Beatle?</div>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Beatle</FormLabel>
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
@@ -384,13 +428,10 @@ class VideoChatPage extends React.Component {
             justify="center"
             alignItems="center"
             style={{ minHeight: "100vh" }}
-            // style={{ marginTop: "20px" }}
-            // className="super-center"
           >
             <Grid item xs={10}>
               <div>I'm eating...</div>
               <FormControl component="fieldset">
-                <FormLabel component="legend">Food</FormLabel>
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
@@ -404,6 +445,74 @@ class VideoChatPage extends React.Component {
                         control={<Radio />}
                         label={questionValue.value}
                         key={`question4-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status == "question5") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Grid item xs={10}>
+              <div>I like my brunch with...</div>
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handleBreakfastChange(e)}
+                >
+                  {question5.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question5-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status === "question6") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Grid item xs={10}>
+              <div>Match me with a...</div>
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handlePreferenceChange(e)}
+                >
+                  {question6.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question6-${index}`}
                       />
                     );
                   })}
@@ -459,12 +568,12 @@ class VideoChatPage extends React.Component {
                 <div className="topic-list">
                   <TopicList
                     topics={[
-                      "Interests",
-                      "Hobbies",
-                      "Games",
-                      "Food",
-                      "Work",
-                      "Travel",
+                      "What are you eating for lunch?",
+                      "What do you do in your free time?",
+                      "What's your favorite TV show?",
+                      "What’s your dream job?",
+                      "What is your ideal vacation spot?",
+                      "What is your favorite restaurant?",
                     ]}
                   />
                 </div>
