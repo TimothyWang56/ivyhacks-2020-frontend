@@ -137,7 +137,7 @@ class VideoChatPage extends React.Component {
 
   handleUserLeft(data) {
       console.log(data);
-      alert("The other user, " + data.name + " has left!");
+      alert(data.name + " has left!");
   }
     
     async componentDidMount() {
@@ -348,17 +348,20 @@ class VideoChatPage extends React.Component {
         return (
           <>
             <div className="video-page-container">
-              <div className="topic-list">
-                <TopicList
-                  topics={[
-                    "Interests",
-                    "Hobbies",
-                    "Games",
-                    "Food",
-                    "Work",
-                    "Travel",
-                  ]}
-                />
+              <div className="left-panel">
+                <div className="enjoy-text">Enjoy your lunch with {this.state.otherUser}!</div>
+                <div className="topic-list">
+                    <TopicList
+                    topics={[
+                        "Interests",
+                        "Hobbies",
+                        "Games",
+                        "Food",
+                        "Work",
+                        "Travel",
+                    ]}
+                    />
+                </div>
               </div>
               <div
                 className="leave-button"

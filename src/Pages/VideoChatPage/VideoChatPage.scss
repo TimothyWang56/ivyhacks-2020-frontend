@@ -17,12 +17,22 @@
     grid-template-rows: 1fr min-content;
     align-items: center;
     justify-items: center;
+    text-align: center;
 
-    .topic-list {
-        grid-column: 1;
-        grid-row: 1;
+    .left-panel {
         width: 100%;
         height: 100%;
+        grid-column: 1;
+        grid-row: 1;
+
+        .enjoy-text {
+            padding-bottom: 1em;
+        }
+    
+        .topic-list {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     .leave-button {
