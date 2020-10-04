@@ -61,3 +61,16 @@
     margin-bottom: 2em;
   }
 }
+
+.forward-backward-buttons {
+  display: flex;
+  flex-direction: row;
+
+  .left-arrow {
+    margin-right: 0.5em;
+  }
+
+  .right-arrow {
+    margin-left: 0.5em;
+  }
+}
