@@ -129,7 +129,7 @@ class VideoChatPage extends React.Component {
       food: "",
       otherUser: "",
       breakfast: "",
-      self: "",
+      iAmA: "",
       preference: "",
       userRes: {},
       otherUserRes: {},
@@ -160,7 +160,7 @@ class VideoChatPage extends React.Component {
       beatle,
       food,
       breakfast,
-      self,
+      iAmA,
       preference,
     }) => ({
       username,
@@ -169,7 +169,7 @@ class VideoChatPage extends React.Component {
       beatle,
       food,
       breakfast,
-      self,
+      iAmA,
       preference,
     }))(this.state);
     socket.emit("surveyComplete", picked);
@@ -269,8 +269,8 @@ class VideoChatPage extends React.Component {
     this.setState({ breakfast: e.target.value });
   };
 
-  handleSelfChange = (e) => {
-    this.setState({ self: e.target.value });
+  handleIAmAChange = (e) => {
+    this.setState({ iAmA: e.target.value });
   };
 
   handlePreferenceChange = (e) => {
@@ -386,7 +386,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.duration ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question2" })}
+                  onClick={() => this.state.duration ? this.setState({ status: "question2" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -443,7 +443,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.meat ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question3" })}
+                  onClick={() => this.state.meat ? this.setState({ status: "question3" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -500,7 +500,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.beatle ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question4" })}
+                  onClick={() => this.state.beatle ? this.setState({ status: "question4" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -557,7 +557,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.food ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question5" })}
+                  onClick={() => this.state.food ? this.setState({ status: "question5" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -614,7 +614,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.breakfast ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question6" })}
+                  onClick={() => this.state.breakfast ? this.setState({ status: "question6" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -639,12 +639,12 @@ class VideoChatPage extends React.Component {
                   aria-label="gender"
                   name="gender1"
                   value={this.state.value}
-                  onChange={(e) => this.handleSelfChange(e)}
+                  onChange={(e) => this.handleIAmAChange(e)}
                 >
                   {question6.map((questionValue, index) => {
                     return (
                       <FormControlLabel
-                        checked={this.state.self === questionValue.value}
+                        checked={this.state.iAmA === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -669,9 +669,9 @@ class VideoChatPage extends React.Component {
               <div className="right-arrow">
                 <Button
                   variant="contained"
-                  color={this.state.preference ? "secondary" : "#656565"}
+                  color={this.state.iAmA ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "question7" })}
+                  onClick={() => this.state.iAmA ? this.setState({ status: "question7" }) : null}
                 >
                   <ArrowRight />
                 </Button>
@@ -728,7 +728,7 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.preference ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.setState({ status: "getMatched" })}
+                  onClick={() => this.state.preference ? this.setState({ status: "getMatched" }) : null}
                 >
                   <ArrowRight />
                 </Button>
