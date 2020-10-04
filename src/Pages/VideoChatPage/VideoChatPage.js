@@ -31,18 +31,48 @@ const question1 = [
 
 const question2 = [
   {
-    value: "15",
+    value: "Ham",
   },
   {
-    value: "30",
+    value: "Turkey",
   },
   {
-    value: "45",
+    value: "Roast Beef",
   },
   {
-    value: "60",
+    value: "Vegeterian",
   },
 ];
+
+const question3 = [
+    {
+      value: "John",
+    },
+    {
+      value: "Paul",
+    },
+    {
+      value: "Ringo",
+    },
+    {
+      value: "George",
+    },
+  ];
+
+  const question4 = [
+    {
+      value: "Fresh out of my kitchen",
+    },
+    {
+      value: "Takeout",
+    },
+    {
+      value: "Food Delivery",
+    },
+    {
+      value: "Leftovers",
+    },
+  ];
 
 class VideoChatPage extends React.Component {
   constructor(props) {
@@ -53,14 +83,27 @@ class VideoChatPage extends React.Component {
       status: "form",
       url: "",
       username: "",
-      duration: "",
+      duration: "", 
+      meat: "",
+      beatle: "",
+      food: ""
     };
   }
 
+    validateForm = () => {
+        const {username, duration, meat, beatle, food} = this.state;
+        return (!username.length || !duration.length || !meat.length || !beatle.length || !food.length)
+    }
     // matched = () => this.setState({status: "video"});
     formComplete = () => {
+        if (this.validateForm()) {
+            alert("Please fill out form");
+            return;
+        }
         this.setState({status: "matching"});
-        socket.emit("surveyComplete");
+        // const {username, duration, meat, beatle, food} = this.state;
+        const picked = (({ username, duration, meat, beatle, food}) => ({ username, duration, meat, beatle, food}))(this.state);
+        socket.emit("surveyComplete", picked);
         console.log("sent survey");
     }
     setUrl = (data) => {
@@ -100,8 +143,20 @@ class VideoChatPage extends React.Component {
     this.setState({ username: e.target.value });
   }
 
-  handleTimeChange = (e) => {
-    this.setState({ time: e.target.value });
+  handleDurationChange = (e) => {
+    this.setState({ duration: e.target.value });
+  };
+
+  handleMeatChange = (e) => {
+    this.setState({ meat: e.target.value });
+  };
+
+  handleBeatleChange = (e) => {
+    this.setState({ beatle: e.target.value });
+  };
+
+  handleFoodChange = (e) => {
+    this.setState({ food: e.target.value });
   };
 
   render() {
@@ -148,7 +203,7 @@ class VideoChatPage extends React.Component {
               alignItems="center"
               style={{ marginTop: "20px" }}
             >
-              <Grid xs={3} style={{ marginLeft: "12.5%" }}>
+              <Grid item={true} xs={3} style={{ marginLeft: "12.5%" }}>
                 <div>How long do you plan on eating for?</div>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Duration</FormLabel>
@@ -156,36 +211,38 @@ class VideoChatPage extends React.Component {
                     aria-label="gender"
                     name="gender1"
                     value={this.state.value}
-                    onChange={(e) => this.handleTimeChange(e)}
+                    onChange={(e) => this.handleDurationChange(e)}
                   >
-                    {question1.map((questionValue) => {
+                    {question1.map((questionValue, index) => {
                       return (
                         <FormControlLabel
                           value={questionValue.value}
                           control={<Radio />}
                           label={questionValue.value}
+                          key={`question1-${index}`}
                         />
                       );
                     })}
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              <Grid xs={3}>
-                <div>How long do you plan on eating for?</div>
+              <Grid item={true} xs={3}>
+                <div>Pick your preferred lunch meat</div>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Duration</FormLabel>
+                  <FormLabel component="legend">Meat</FormLabel>
                   <RadioGroup
                     aria-label="gender"
                     name="gender1"
                     value={this.state.value}
-                    onChange={(e) => this.handleTimeChange(e)}
+                    onChange={(e) => this.handleMeatChange(e)}
                   >
-                    {question1.map((questionValue) => {
+                    {question2.map((questionValue, index) => {
                       return (
                         <FormControlLabel
                           value={questionValue.value}
                           control={<Radio />}
                           label={questionValue.value}
+                          key={`question2-${index}`}
                         />
                       );
                     })}
@@ -199,44 +256,46 @@ class VideoChatPage extends React.Component {
               alignItems="center"
               style={{ marginTop: "20px" }}
             >
-              <Grid xs={3} style={{ marginLeft: "12%" }}>
-                <div>How long do you plan on eating for?</div>
+              <Grid item={true} xs={3} style={{ marginLeft: "12%" }}>
+                <div>Who's your favorite Beatle?</div>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Duration</FormLabel>
+                  <FormLabel component="legend">Beatle</FormLabel>
                   <RadioGroup
                     aria-label="gender"
                     name="gender1"
                     value={this.state.value}
-                    onChange={(e) => this.handleTimeChange(e)}
+                    onChange={(e) => this.handleBeatleChange(e)}
                   >
-                    {question1.map((questionValue) => {
+                    {question3.map((questionValue, index) => {
                       return (
                         <FormControlLabel
                           value={questionValue.value}
                           control={<Radio />}
                           label={questionValue.value}
+                          key={`question3-${index}`}
                         />
                       );
                     })}
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              <Grid xs={3}>
-                <div>How long do you plan on eating for?</div>
+              <Grid item={true} xs={3}>
+                <div>I'm eating...</div>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Duration</FormLabel>
+                  <FormLabel component="legend">Food</FormLabel>
                   <RadioGroup
                     aria-label="gender"
                     name="gender1"
                     value={this.state.value}
-                    onChange={(e) => this.handleTimeChange(e)}
+                    onChange={(e) => this.handleFoodChange(e)}
                   >
-                    {question1.map((questionValue) => {
+                    {question4.map((questionValue, index) => {
                       return (
                         <FormControlLabel
                           value={questionValue.value}
                           control={<Radio />}
                           label={questionValue.value}
+                          key={`question4-${index}`}
                         />
                       );
                     })}
