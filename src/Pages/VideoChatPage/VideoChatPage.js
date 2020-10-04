@@ -1,15 +1,14 @@
 import React from "react";
 import DailyIFrame from "@daily-co/daily-js";
 import TopicList from "../../Components/TopicList/TopicList";
-import { socket } from "./Header";
-import banana from "./banana.gif";
+import { socket } from "../../Components/Header/Header";
+import banana from "../../assets/banana.gif";
 import { Grid, Box, TextField, Button } from "@material-ui/core";
 import Illustration from "../../assets/homepage.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import "./VideoChatPage.scss";
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
 

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // import HomePage from './Pages/HomePage/HomePage';
 import VideoChatPage from "./Pages/VideoChatPage/VideoChatPage";
-import { Header } from "./Pages/VideoChatPage/Header";
+import { Header } from "./Components/Header/Header";
 ReactDOM.render(
   <div>
     <Header />
