@@ -85,7 +85,8 @@ class VideoChatPage extends React.Component {
       duration: "", 
       meat: "",
       beatle: "",
-      food: ""
+      food: "",
+      otherUser: ""
     };
   }
 
@@ -105,7 +106,7 @@ class VideoChatPage extends React.Component {
         console.log("sent survey");
     }
     setUrl = (data) => {
-        this.setState({url: data, status: "video"});
+        this.setState({url: data.url, status: "video", otherUser: data.name });
         this.updateIframe();
         console.log(data);
     };
@@ -129,6 +130,7 @@ class VideoChatPage extends React.Component {
           time: 0,
           status: "form",
           url: "",
+          otherUser: "",
       })
       socket.emit("leaveCall");
   }
