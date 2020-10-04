@@ -1,7 +1,6 @@
 import socketIOClient from "socket.io-client";
 import React, { Component } from "react";
 import logo from "../../assets/logo.png";
-import "./Header.scss";
 // The Header creates links that can be used to navigate
 // between routes.
 var socket;
