@@ -56,8 +56,6 @@ class VideoChatPage extends React.Component {
       duration: "",
     };
   }
-
-    // matched = () => this.setState({status: "video"});
     formComplete = () => {
         this.setState({status: "matching"});
         socket.emit("surveyComplete");
@@ -74,7 +72,17 @@ class VideoChatPage extends React.Component {
     if (this.state.time !== 0) return;
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
-    setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+    this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+  }
+
+  onLeave() {
+      clearInterval(this.interval);
+      this.setState({
+          time: 0,
+          status: "form",
+          url: "",
+      })
+      socket.emit("leaveCall");
   }
     
     async componentDidMount() {
@@ -281,7 +289,7 @@ class VideoChatPage extends React.Component {
               </div>
               <div
                 className="leave-button"
-                onClick={() => console.log("leave pressed")}
+                onClick={() => this.onLeave()}
               >
                 LEAVE
               </div>
