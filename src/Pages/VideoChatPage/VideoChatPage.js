@@ -103,7 +103,6 @@ class VideoChatPage extends React.Component {
       !food.length
     );
   };
-
   formComplete = () => {
     if (this.validateForm()) {
       alert("Please fill out form");
@@ -136,11 +135,10 @@ class VideoChatPage extends React.Component {
     this.setState({ time: parseInt(this.state.duration) * 60 });
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
-    this.interval = setInterval(() => {
-      if (this.state.time >= 0) {
-        this.setState({ time: this.state.time - 1 });
-      }
-    }, 1000);
+    this.interval = setInterval(
+      () => this.setState({ time: this.state.time + 1 }),
+      1000
+    );
   }
 
   onLeave() {
@@ -211,19 +209,27 @@ class VideoChatPage extends React.Component {
   }
 
   handleDurationChange = (e) => {
-    this.setState({ duration: e.target.value });
+    this.setState({ duration: e.target.value, status: "question2" });
   };
 
   handleMeatChange = (e) => {
-    this.setState({ meat: e.target.value });
+    this.setState({ meat: e.target.value, status: "question3" });
   };
 
   handleBeatleChange = (e) => {
-    this.setState({ beatle: e.target.value });
+    this.setState({ beatle: e.target.value, status: "question4" });
   };
 
   handleFoodChange = (e) => {
-    this.setState({ food: e.target.value });
+    this.setState({ food: e.target.value, status: "getMatched" });
+  };
+
+  inputName = () => {
+    const { username } = this.state;
+    if (!username.length) alert("Please enter a name");
+    else {
+      this.setState({ status: "question1" });
+    }
   };
 
   render() {
@@ -231,9 +237,15 @@ class VideoChatPage extends React.Component {
     const renderStatus = () => {
       if (status === "form") {
         return (
-          <div>
-            <div className="header">Welcome to Lunchmeat! </div>
-            <div className="header" style={{ fontSize: 24 }}>
+          <div
+            className="super-center center-text"
+            style={{ maxWidth: "100%" }}
+          >
+            <h1 className="header">Welcome to Lunchmeat! </h1>
+            <div
+              className="header center-text"
+              style={{ fontSize: 24, maxWidth: "100%" }}
+            >
               Lunchmeat is a way for you to meet other working people during
               your lunch break!
             </div>
@@ -247,146 +259,193 @@ class VideoChatPage extends React.Component {
               <img
                 src={Illustration}
                 alt="Two people meeting up at a windowsill"
-                style={{ margin: "auto", width: "25%" }}
+                style={{ margin: "auto", maxWidth: "100%", width: "300px" }}
               />
             </Box>
             <div className="header" style={{ marginTop: "25px", fontSize: 24 }}>
-              Let’s get started with your username!
+              Let’s get started with your name!
             </div>
-            <form className="header" style={{ marginTop: "25px" }}>
+            <form className="field" style={{ marginTop: "25px" }}>
               <TextField
                 id="filled-basic"
-                label="Username"
+                label="Name"
                 variant="filled"
                 onChange={(e) => this.handleTextChange(e)}
               />
             </form>
-            <div className="header" style={{ fontSize: 24, marginTop: "20px" }}>
-              Here are some questions to help us match you with others
-            </div>
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              style={{ marginTop: "20px" }}
-            >
-              <Grid item={true} xs={3} style={{ marginLeft: "12.5%" }}>
-                <div>How long do you plan on eating for?</div>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Duration</FormLabel>
-                  <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
-                    value={this.state.value}
-                    onChange={(e) => this.handleDurationChange(e)}
-                  >
-                    {question1.map((questionValue, index) => {
-                      return (
-                        <FormControlLabel
-                          value={questionValue.value}
-                          control={<Radio />}
-                          label={questionValue.value}
-                          key={`question1-${index}`}
-                        />
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item={true} xs={3}>
-                <div>Pick your preferred lunch meat</div>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Meat</FormLabel>
-                  <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
-                    value={this.state.value}
-                    onChange={(e) => this.handleMeatChange(e)}
-                  >
-                    {question2.map((questionValue, index) => {
-                      return (
-                        <FormControlLabel
-                          value={questionValue.value}
-                          control={<Radio />}
-                          label={questionValue.value}
-                          key={`question2-${index}`}
-                        />
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              style={{ marginTop: "20px" }}
-            >
-              <Grid item={true} xs={3} style={{ marginLeft: "12%" }}>
-                <div>Who's your favorite Beatle?</div>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Beatle</FormLabel>
-                  <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
-                    value={this.state.value}
-                    onChange={(e) => this.handleBeatleChange(e)}
-                  >
-                    {question3.map((questionValue, index) => {
-                      return (
-                        <FormControlLabel
-                          value={questionValue.value}
-                          control={<Radio />}
-                          label={questionValue.value}
-                          key={`question3-${index}`}
-                        />
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item={true} xs={3}>
-                <div>I'm eating...</div>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Food</FormLabel>
-                  <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
-                    value={this.state.value}
-                    onChange={(e) => this.handleFoodChange(e)}
-                  >
-                    {question4.map((questionValue, index) => {
-                      return (
-                        <FormControlLabel
-                          value={questionValue.value}
-                          control={<Radio />}
-                          label={questionValue.value}
-                          key={`question4-${index}`}
-                        />
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-            </Grid>
             <div style={{ height: "100px", display: "flex" }}>
               <Button
                 variant="contained"
                 color="secondary"
                 style={{ margin: "auto" }}
-                onClick={() => this.formComplete()}
+                onClick={() => this.inputName()}
               >
-                Match with someone!
+                Continue
               </Button>
             </div>
           </div>
         );
+      } else if (status === "question1") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Grid item xs={10}>
+              <div>How long do you plan on eating for?</div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Duration</FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handleDurationChange(e)}
+                >
+                  {question1.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question1-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status === "question2") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Grid item xs={10}>
+              <div>Pick your preferred lunch meat</div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Meat</FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handleMeatChange(e)}
+                >
+                  {question2.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question2-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status === "question3") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Grid item xs={10}>
+              <div>Who's your favorite Beatle?</div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Beatle</FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handleBeatleChange(e)}
+                >
+                  {question3.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question3-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status === "question4") {
+        return (
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ minHeight: "100vh" }}
+            // style={{ marginTop: "20px" }}
+            // className="super-center"
+          >
+            <Grid item xs={10}>
+              <div>I'm eating...</div>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Food</FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.value}
+                  onChange={(e) => this.handleFoodChange(e)}
+                >
+                  {question4.map((questionValue, index) => {
+                    return (
+                      <FormControlLabel
+                        value={questionValue.value}
+                        control={<Radio />}
+                        label={questionValue.value}
+                        key={`question4-${index}`}
+                      />
+                    );
+                  })}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+        );
+      } else if (status === "getMatched") {
+        return (
+          <div className="super-center">
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin: "auto" }}
+              onClick={() => this.formComplete()}
+            >
+              Match Me!
+            </Button>
+          </div>
+        );
       } else if (status === "matching") {
         return (
-          <div className="video-page-container">
-            <div>
+          <div className="super-center">
+            <div className="center-text">
               <img src={banana} alt="banana spin"></img>
+              <div>Finding you a match</div>
             </div>
           </div>
         );
