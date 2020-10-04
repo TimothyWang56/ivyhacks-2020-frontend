@@ -89,7 +89,7 @@ class VideoChatPage extends React.Component {
       otherUser: "",
       userRes: {},
       otherUserRes: {},
-      overlappingResponses: [],
+      overlappingResponses: {},
     };
   }
 
@@ -127,6 +127,7 @@ class VideoChatPage extends React.Component {
       userRes: data.userResponse,
       otherUserRes: data.otherUserResponse,
     });
+    this.overlappingResponses();
     this.updateIframe();
   };
 
@@ -158,12 +159,13 @@ class VideoChatPage extends React.Component {
   }
 
   overlappingResponses() {
-    let results = [];
-    this.state.userRes.forEach((value, key, map) => {
-      if (this.state.otherUserRes[key] === value) {
-        results.append(value);
+    let results = {};
+    for (const [key, value] of Object.entries(this.state.userRes)) {
+      console.log(key);
+      if (this.state.otherUserRes[key] === value && key !== "duration") {
+        results[key] = value;
       }
-    });
+    }
     this.setState({ overlappingResponses: results });
   }
 
@@ -185,23 +187,6 @@ class VideoChatPage extends React.Component {
       .map((v) => ("" + v).padStart(2, "0"))
       .filter((v, i) => v !== "00" || i > 0)
       .join(":");
-  }
-
-  getMatchedSurveyResponses() {
-    //     const categories = ["meat", "beatle", "food"];
-    //   return (
-    //       <div>
-    //           {categories.map(category => {
-    //               if (this.state.userRes[category] === this.state.otherUserRes[category]) {
-    //                   return (
-    //                       <div>{this.state.userRes[category]}</div>
-    //                   )
-    //               } else {
-    //                   return null;
-    //               }
-    //           })}
-    //       </div>
-    //   )
   }
 
   handleTextChange(e) {
@@ -457,6 +442,20 @@ class VideoChatPage extends React.Component {
                 <div className="enjoy-text">
                   Enjoy your lunch with {this.state.otherUser}!
                 </div>
+                <div style={{ marginBottom: "12%" }}>
+                  <div style={{ fontSize: "16px", fontWeight: 500 }}>
+                    You both like{" "}
+                  </div>
+                  {Object.entries(this.state.overlappingResponses).map(
+                    ([key, value]) => {
+                      return (
+                        <div>
+                          {key}: {value}
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
                 <div className="topic-list">
                   <TopicList
                     topics={[
@@ -469,7 +468,6 @@ class VideoChatPage extends React.Component {
                     ]}
                   />
                 </div>
-                {this.getMatchedSurveyResponses()}
               </div>
               <Button
                 color="secondary"

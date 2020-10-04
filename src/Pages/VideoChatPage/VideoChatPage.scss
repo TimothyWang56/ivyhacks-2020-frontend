@@ -1,58 +1,63 @@
-@import '../../main.scss';
+@import "../../main.scss";
 
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    font-size: 64px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: 64px;
+}
+
+.enjoy-text {
+  font-size: 24px;
+  font-weight: 500;
+}
 
 .video-page-container {
-    width: 100vw;
-    height: 100vh;
-    padding: 2em 2em 0em 0em;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr min-content;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 2em 2em 0em 0em;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr min-content;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
 
-    .left-panel {
-        width: 100%;
-        height: 100%;
-        grid-column: 1;
-        grid-row: 1;
+  .left-panel {
+    width: 100%;
+    height: 100%;
+    grid-column: 1;
+    grid-row: 1;
 
-        .enjoy-text {
-            padding-bottom: 1em;
-        }
-    
-        .topic-list {
-            width: 100%;
-            height: 100%;
-        }
+    .enjoy-text {
+      padding-bottom: 1em;
     }
 
-    .leave-button {
-        grid-column: 1;
-        grid-row: 2;
-        background-color: red;
-        padding: 1em;
-        margin-bottom: 2em;
+    .topic-list {
+      width: 100%;
+      height: 100%;
     }
+  }
 
-    .video-frame {
-        grid-column: 2;
-        grid-row: 1;
-        width: 100%;
-        height: 100%;
-    }
+  .leave-button {
+    grid-column: 1;
+    grid-row: 2;
+    background-color: red;
+    padding: 1em;
+    margin-bottom: 2em;
+  }
 
-    .video-timer {
-        grid-column: 2;
-        grid-row: 2;
-        margin-bottom: 2em;
-    }
+  .video-frame {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-timer {
+    grid-column: 2;
+    grid-row: 2;
+    margin-bottom: 2em;
+  }
 }
