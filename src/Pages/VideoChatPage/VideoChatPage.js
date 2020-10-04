@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import "./VideoChatPage.scss";
+import { ArrowLeft, ArrowRight } from "@material-ui/icons"
 
 const question1 = [
   {
@@ -235,27 +236,27 @@ class VideoChatPage extends React.Component {
   }
 
   handleDurationChange = (e) => {
-    this.setState({ duration: e.target.value, status: "question2" });
+    this.setState({ duration: e.target.value });
   };
 
   handleMeatChange = (e) => {
-    this.setState({ meat: e.target.value, status: "question3" });
+    this.setState({ meat: e.target.value });
   };
 
   handleBeatleChange = (e) => {
-    this.setState({ beatle: e.target.value, status: "question4" });
+    this.setState({ beatle: e.target.value });
   };
 
   handleFoodChange = (e) => {
-    this.setState({ food: e.target.value, status: "question5" });
+    this.setState({ food: e.target.value });
   };
 
   handleBreakfastChange = (e) => {
-    this.setState({ breakfast: e.target.value, status: "question6" });
+    this.setState({ breakfast: e.target.value });
   };
 
   handlePreferenceChange = (e) => {
-    this.setState({ preference: e.target.value, status: "getMatched" });
+    this.setState({ preference: e.target.value });
   };
 
   inputName = () => {
@@ -302,6 +303,7 @@ class VideoChatPage extends React.Component {
                 id="filled-basic"
                 label="Name"
                 variant="filled"
+                defaultValue={this.state.username}
                 onChange={(e) => this.handleTextChange(e)}
               />
             </form>
@@ -339,6 +341,7 @@ class VideoChatPage extends React.Component {
                   {question1.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                        checked={this.state.duration === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -349,6 +352,28 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "form" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.duration ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question2" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
       } else if (status === "question2") {
@@ -373,6 +398,7 @@ class VideoChatPage extends React.Component {
                   {question2.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                        checked={this.state.meat === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -383,6 +409,28 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question1" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.meat ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question3" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
       } else if (status === "question3") {
@@ -407,6 +455,7 @@ class VideoChatPage extends React.Component {
                   {question3.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                        checked={this.state.beatle === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -417,6 +466,28 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question2" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.beatle ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question4" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
       } else if (status === "question4") {
@@ -441,6 +512,7 @@ class VideoChatPage extends React.Component {
                   {question4.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                        checked={this.state.food === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -451,9 +523,31 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question3" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.food ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question5" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
-      } else if (status == "question5") {
+      } else if (status === "question5") {
         return (
           <Grid
             container
@@ -475,6 +569,7 @@ class VideoChatPage extends React.Component {
                   {question5.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                      checked={this.state.breakfast === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -485,6 +580,28 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question4" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.breakfast ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question6" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
       } else if (status === "question6") {
@@ -509,6 +626,7 @@ class VideoChatPage extends React.Component {
                   {question6.map((questionValue, index) => {
                     return (
                       <FormControlLabel
+                        checked={this.state.preference === questionValue.value}
                         value={questionValue.value}
                         control={<Radio />}
                         label={questionValue.value}
@@ -519,6 +637,28 @@ class VideoChatPage extends React.Component {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <div className="forward-backward-buttons">
+              <div className="left-arrow">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question5" })}
+                >
+                  <ArrowLeft/>
+                </Button>
+              </div>
+              <div className="right-arrow">
+                <Button
+                  variant="contained"
+                  color={this.state.preference ? "secondary" : "#656565"}
+                  style={{ margin: "auto" }}
+                  onClick={() => this.setState({ status: "question7" })}
+                >
+                  <ArrowRight/>
+                </Button>
+              </div>
+            </div>
           </Grid>
         );
       } else if (status === "getMatched") {

@@ -74,17 +74,30 @@ sans-serif;
         padding: 1em;
         margin-bottom: 2em;
     }
-
+  
     .video-frame {
-        grid-column: 2;
-        grid-row: 1;
-        width: 100%;
-        height: 100%;
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      height: 100%;
     }
 
     .video-timer {
-        grid-column: 2;
-        grid-row: 2;
-        margin-bottom: 2em;
+      grid-column: 2;
+      grid-row: 2;
+      margin-bottom: 2em;
     }
+}
+
+.forward-backward-buttons {
+  display: flex;
+  flex-direction: row;
+
+  .left-arrow {
+    margin-right: 0.5em;
+  }
+
+  .right-arrow {
+    margin-left: 0.5em;
+  }
 }
