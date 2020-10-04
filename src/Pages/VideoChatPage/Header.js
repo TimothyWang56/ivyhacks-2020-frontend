@@ -14,11 +14,7 @@ class Header extends Component {
     socket = socketIOClient(this.state.endpoint);
   }
   render() {
-<<<<<<< HEAD
-    return <div>header (holds socket)</div>;
-=======
-    return <div></div>
->>>>>>> a770f2f48b8917db7a840317cac45793db67a9db
+    return <div></div>;
   }
 }
 

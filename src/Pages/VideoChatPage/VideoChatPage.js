@@ -471,9 +471,13 @@ class VideoChatPage extends React.Component {
                 </div>
                 {this.getMatchedSurveyResponses()}
               </div>
-              <div className="leave-button" onClick={() => this.onLeave()}>
-                LEAVE
-              </div>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={() => this.onLeave()}
+              >
+                Leave Room
+              </Button>
               <iframe
                 className="video-frame"
                 title="video call iframe"
