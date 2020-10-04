@@ -84,13 +84,20 @@ class VideoChatPage extends React.Component {
       })
       socket.emit("leaveCall");
   }
+
+  handleUserLeft(data) {
+      console.log(data);
+      alert("The other user, " + data.name + " has left!");
+  }
     
     async componentDidMount() {
         socket.on("matched", this.setUrl);
+        socket.on("userLeft", this.handleUserLeft);
     }
 
     async componentWillUnmount() {
         socket.off("matched");
+        socket.off("userLeft");
     }
 
 
