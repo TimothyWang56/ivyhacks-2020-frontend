@@ -5,6 +5,7 @@ import { socket } from "../../Components/Header/Header";
 import banana from "../../assets/banana.gif";
 import { Grid, Box, TextField, Button } from "@material-ui/core";
 import Illustration from "../../assets/homepage.png";
+import lunchmeat from "../../assets/crop.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -308,8 +309,8 @@ class VideoChatPage extends React.Component {
               }}
             >
               <img
-                src={Illustration}
-                alt="Two people meeting up at a windowsill"
+                src={lunchmeat}
+                alt="Lunchmeat logo"
                 style={{ margin: "auto", maxWidth: "100%", width: "300px" }}
               />
             </Box>
@@ -386,7 +387,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.duration ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.duration ? this.setState({ status: "question2" }) : null}
+                  onClick={() =>
+                    this.state.duration
+                      ? this.setState({ status: "question2" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -443,7 +448,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.meat ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.meat ? this.setState({ status: "question3" }) : null}
+                  onClick={() =>
+                    this.state.meat
+                      ? this.setState({ status: "question3" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -500,7 +509,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.beatle ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.beatle ? this.setState({ status: "question4" }) : null}
+                  onClick={() =>
+                    this.state.beatle
+                      ? this.setState({ status: "question4" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -557,7 +570,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.food ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.food ? this.setState({ status: "question5" }) : null}
+                  onClick={() =>
+                    this.state.food
+                      ? this.setState({ status: "question5" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -614,7 +631,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.breakfast ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.breakfast ? this.setState({ status: "question6" }) : null}
+                  onClick={() =>
+                    this.state.breakfast
+                      ? this.setState({ status: "question6" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -671,7 +692,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.iAmA ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.iAmA ? this.setState({ status: "question7" }) : null}
+                  onClick={() =>
+                    this.state.iAmA
+                      ? this.setState({ status: "question7" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
@@ -728,7 +753,11 @@ class VideoChatPage extends React.Component {
                   variant="contained"
                   color={this.state.preference ? "secondary" : "#656565"}
                   style={{ margin: "auto" }}
-                  onClick={() => this.state.preference ? this.setState({ status: "getMatched" }) : null}
+                  onClick={() =>
+                    this.state.preference
+                      ? this.setState({ status: "getMatched" })
+                      : null
+                  }
                 >
                   <ArrowRight />
                 </Button>
