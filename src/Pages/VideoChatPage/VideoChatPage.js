@@ -44,34 +44,34 @@ const question2 = [
 ];
 
 const question3 = [
-    {
-      value: "John",
-    },
-    {
-      value: "Paul",
-    },
-    {
-      value: "Ringo",
-    },
-    {
-      value: "George",
-    },
-  ];
+  {
+    value: "John",
+  },
+  {
+    value: "Paul",
+  },
+  {
+    value: "Ringo",
+  },
+  {
+    value: "George",
+  },
+];
 
-  const question4 = [
-    {
-      value: "Fresh out of my kitchen",
-    },
-    {
-      value: "Takeout",
-    },
-    {
-      value: "Food Delivery",
-    },
-    {
-      value: "Leftovers",
-    },
-  ];
+const question4 = [
+  {
+    value: "Fresh out of my kitchen",
+  },
+  {
+    value: "Takeout",
+  },
+  {
+    value: "Food Delivery",
+  },
+  {
+    value: "Leftovers",
+  },
+];
 
 class VideoChatPage extends React.Component {
   constructor(props) {
@@ -82,37 +82,54 @@ class VideoChatPage extends React.Component {
       status: "form",
       url: "",
       username: "",
-      duration: "", 
+      duration: "",
       meat: "",
       beatle: "",
       food: "",
       otherUser: "",
       userRes: {},
       otherUserRes: {},
+      overlappingResponses: [],
     };
   }
 
-    validateForm = () => {
-        const {username, duration, meat, beatle, food} = this.state;
-        return (!username.length || !duration.length || !meat.length || !beatle.length || !food.length)
-    }
+  validateForm = () => {
+    const { username, duration, meat, beatle, food } = this.state;
+    return (
+      !username.length ||
+      !duration.length ||
+      !meat.length ||
+      !beatle.length ||
+      !food.length
+    );
+  };
 
-    formComplete = () => {
-        if (this.validateForm()) {
-            alert("Please fill out form");
-            return;
-        }
-        this.setState({status: "matching"});
-        const picked = (({ username, duration, meat, beatle, food}) => ({ username, duration, meat, beatle, food}))(this.state);
-        socket.emit("surveyComplete", picked);
-        console.log("sent survey");
+  formComplete = () => {
+    if (this.validateForm()) {
+      alert("Please fill out form");
+      return;
     }
-    setUrl = (data) => {
-        this.setState({url: data.url, status: "video", otherUser: data.name, userRes: data.userResponse, otherUserRes: data.otherUserResponse });
-        this.updateIframe();
-        console.log(data);
-    };
-
+    this.setState({ status: "matching" });
+    const picked = (({ username, duration, meat, beatle, food }) => ({
+      username,
+      duration,
+      meat,
+      beatle,
+      food,
+    }))(this.state);
+    socket.emit("surveyComplete", picked);
+    console.log("sent survey");
+  };
+  setUrl = (data) => {
+    this.setState({
+      url: data.url,
+      status: "video",
+      otherUser: data.name,
+      userRes: data.userResponse,
+      otherUserRes: data.otherUserResponse,
+    });
+    this.updateIframe();
+  };
 
   async updateIframe() {
     if (this.state.time !== 0) return;
@@ -120,38 +137,47 @@ class VideoChatPage extends React.Component {
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
     this.interval = setInterval(() => {
-        if (this.state.time >= 0) {
-            this.setState({ time: this.state.time - 1 });
-        }
+      if (this.state.time >= 0) {
+        this.setState({ time: this.state.time - 1 });
+      }
     }, 1000);
   }
 
   onLeave() {
-      clearInterval(this.interval);
-      this.setState({
-          time: 0,
-          status: "form",
-          url: "",
-          otherUser: "",
-      })
-      socket.emit("leaveCall");
+    clearInterval(this.interval);
+    this.setState({
+      time: 0,
+      status: "form",
+      url: "",
+      otherUser: "",
+    });
+    socket.emit("leaveCall");
   }
 
   handleUserLeft(data) {
-      console.log(data);
-      alert(data.name + " has left!");
+    console.log(data);
+    alert(data.name + " has left!");
   }
-    
-    async componentDidMount() {
-        socket.on("matched", this.setUrl);
-        socket.on("userLeft", this.handleUserLeft);
-    }
 
-    async componentWillUnmount() {
-        socket.off("matched");
-        socket.off("userLeft");
-    }
+  overlappingResponses() {
+    let results = [];
+    this.state.userRes.forEach((value, key, map) => {
+      if (this.state.otherUserRes[key] === value) {
+        results.append(value);
+      }
+    });
+    this.setState({ overlappingResponses: results });
+  }
 
+  async componentDidMount() {
+    socket.on("matched", this.setUrl);
+    socket.on("userLeft", this.handleUserLeft);
+  }
+
+  async componentWillUnmount() {
+    socket.off("matched");
+    socket.off("userLeft");
+  }
 
   formatTime(secs) {
     let hours = Math.floor(secs / 3600);
@@ -165,7 +191,6 @@ class VideoChatPage extends React.Component {
 
   getMatchedSurveyResponses() {
     //     const categories = ["meat", "beatle", "food"];
-
     //   return (
     //       <div>
     //           {categories.map(category => {
@@ -357,11 +382,12 @@ class VideoChatPage extends React.Component {
             </div>
           </div>
         );
-      }
-      else if (status === "matching") {
+      } else if (status === "matching") {
         return (
           <div className="video-page-container">
-            <div><img src={banana} alt="banana spin"></img></div>
+            <div>
+              <img src={banana} alt="banana spin"></img>
+            </div>
           </div>
         );
       } else {
@@ -369,25 +395,24 @@ class VideoChatPage extends React.Component {
           <>
             <div className="video-page-container">
               <div className="left-panel">
-                <div className="enjoy-text">Enjoy your lunch with {this.state.otherUser}!</div>
+                <div className="enjoy-text">
+                  Enjoy your lunch with {this.state.otherUser}!
+                </div>
                 <div className="topic-list">
-                    <TopicList
+                  <TopicList
                     topics={[
-                        "Interests",
-                        "Hobbies",
-                        "Games",
-                        "Food",
-                        "Work",
-                        "Travel",
+                      "Interests",
+                      "Hobbies",
+                      "Games",
+                      "Food",
+                      "Work",
+                      "Travel",
                     ]}
-                    />
+                  />
                 </div>
                 {this.getMatchedSurveyResponses()}
               </div>
-              <div
-                className="leave-button"
-                onClick={() => this.onLeave()}
-              >
+              <div className="leave-button" onClick={() => this.onLeave()}>
                 LEAVE
               </div>
               <iframe
