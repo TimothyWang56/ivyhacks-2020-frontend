@@ -1,4 +1,12 @@
 @import "../../main.scss";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+$rubik: 'Rubik',
+sans-serif;
+
+* {
+  font-family: $rubik;
+}
 
 .header {
   display: flex;
