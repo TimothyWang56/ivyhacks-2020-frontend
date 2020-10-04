@@ -86,7 +86,9 @@ class VideoChatPage extends React.Component {
       meat: "",
       beatle: "",
       food: "",
-      otherUser: ""
+      otherUser: "",
+      userRes: {},
+      otherUserRes: {},
     };
   }
 
@@ -106,7 +108,7 @@ class VideoChatPage extends React.Component {
         console.log("sent survey");
     }
     setUrl = (data) => {
-        this.setState({url: data.url, status: "video", otherUser: data.name });
+        this.setState({url: data.url, status: "video", otherUser: data.name, userRes: data.userResponse, otherUserRes: data.otherUserResponse });
         this.updateIframe();
         console.log(data);
     };
@@ -159,6 +161,24 @@ class VideoChatPage extends React.Component {
       .map((v) => ("" + v).padStart(2, "0"))
       .filter((v, i) => v !== "00" || i > 0)
       .join(":");
+  }
+
+  getMatchedSurveyResponses() {
+    //     const categories = ["meat", "beatle", "food"];
+
+    //   return (
+    //       <div>
+    //           {categories.map(category => {
+    //               if (this.state.userRes[category] === this.state.otherUserRes[category]) {
+    //                   return (
+    //                       <div>{this.state.userRes[category]}</div>
+    //                   )
+    //               } else {
+    //                   return null;
+    //               }
+    //           })}
+    //       </div>
+    //   )
   }
 
   handleTextChange(e) {
@@ -362,6 +382,7 @@ class VideoChatPage extends React.Component {
                     ]}
                     />
                 </div>
+                {this.getMatchedSurveyResponses()}
               </div>
               <div
                 className="leave-button"
