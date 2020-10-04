@@ -113,9 +113,14 @@ class VideoChatPage extends React.Component {
 
   async updateIframe() {
     if (this.state.time !== 0) return;
+    this.setState({ time: parseInt(this.state.duration) * 60 });
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
-    this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+    this.interval = setInterval(() => {
+        if (this.state.time >= 0) {
+            this.setState({ time: this.state.time - 1 });
+        }
+    }, 1000);
   }
 
   onLeave() {
