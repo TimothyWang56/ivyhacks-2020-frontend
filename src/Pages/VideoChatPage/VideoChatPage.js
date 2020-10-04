@@ -2,7 +2,6 @@ import React from "react";
 import "./VideoChatPage.scss";
 import DailyIFrame from "@daily-co/daily-js";
 import TopicList from "../../Components/TopicList/TopicList";
-// import SocketIOClient from "socket.io-client";
 import { socket } from "./Header";
 import banana from "./banana.gif";
 import { Grid, Box, TextField, Button } from "@material-ui/core";
@@ -94,14 +93,13 @@ class VideoChatPage extends React.Component {
         const {username, duration, meat, beatle, food} = this.state;
         return (!username.length || !duration.length || !meat.length || !beatle.length || !food.length)
     }
-    // matched = () => this.setState({status: "video"});
+
     formComplete = () => {
         if (this.validateForm()) {
             alert("Please fill out form");
             return;
         }
         this.setState({status: "matching"});
-        // const {username, duration, meat, beatle, food} = this.state;
         const picked = (({ username, duration, meat, beatle, food}) => ({ username, duration, meat, beatle, food}))(this.state);
         socket.emit("surveyComplete", picked);
         console.log("sent survey");
@@ -117,15 +115,32 @@ class VideoChatPage extends React.Component {
     if (this.state.time !== 0) return;
     this.callFrame = DailyIFrame.wrap(this.iframeRef.current);
     this.callFrame.join({ url: this.state.url });
-    setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+    this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+  }
+
+  onLeave() {
+      clearInterval(this.interval);
+      this.setState({
+          time: 0,
+          status: "form",
+          url: "",
+      })
+      socket.emit("leaveCall");
+  }
+
+  handleUserLeft(data) {
+      console.log(data);
+      alert("The other user, " + data.name + " has left!");
   }
     
     async componentDidMount() {
         socket.on("matched", this.setUrl);
+        socket.on("userLeft", this.handleUserLeft);
     }
 
     async componentWillUnmount() {
         socket.off("matched");
+        socket.off("userLeft");
     }
 
 
@@ -340,7 +355,7 @@ class VideoChatPage extends React.Component {
               </div>
               <div
                 className="leave-button"
-                onClick={() => console.log("leave pressed")}
+                onClick={() => this.onLeave()}
               >
                 LEAVE
               </div>
