@@ -8,10 +8,29 @@ sans-serif;
   font-family: $rubik;
 }
 
+.super-center {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.center-text {
+  text-align: center;
+  align-self: center;
+}
+
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  font-size: 64px;
+  margin-bottom: 15px;
+  // font-size: 64px;
 }

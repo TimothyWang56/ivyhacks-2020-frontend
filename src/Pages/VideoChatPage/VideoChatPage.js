@@ -199,9 +199,15 @@ class VideoChatPage extends React.Component {
     const renderStatus = () => {
       if (status === "form") {
         return (
-          <div>
-            <div className="header">Welcome to Lunchmeat! </div>
-            <div className="header" style={{ fontSize: 24 }}>
+          <div
+            className="super-center center-text"
+            style={{ maxWidth: "100%" }}
+          >
+            <h1 className="header">Welcome to Lunchmeat! </h1>
+            <div
+              className="header center-text"
+              style={{ fontSize: 24, maxWidth: "100%" }}
+            >
               Lunchmeat is a way for you to meet other working people during
               your lunch break!
             </div>
@@ -215,13 +221,13 @@ class VideoChatPage extends React.Component {
               <img
                 src={Illustration}
                 alt="Two people meeting up at a windowsill"
-                style={{ margin: "auto", width: "25%" }}
+                style={{ margin: "auto", maxWidth: "100%", width: "300px" }}
               />
             </Box>
             <div className="header" style={{ marginTop: "25px", fontSize: 24 }}>
               Let’s get started with your name!
             </div>
-            <form className="header" style={{ marginTop: "25px" }}>
+            <form className="field" style={{ marginTop: "25px" }}>
               <TextField
                 id="filled-basic"
                 label="Name"
@@ -239,42 +245,19 @@ class VideoChatPage extends React.Component {
                 Continue
               </Button>
             </div>
-            {/* <div className="header" style={{ fontSize: 24, marginTop: "20px" }}>
-              Here are some questions to help us match you with others
-            </div>
-            
-              
-            </Grid>
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              style={{ marginTop: "20px" }}
-            >
-              
-              
-            </Grid>
-            <div style={{ height: "100px", display: "flex" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ margin: "auto" }}
-                onClick={() => this.formComplete()}
-              >
-                Match with someone!
-              </Button>
-            </div> */}
           </div>
         );
       } else if (status === "question1") {
         return (
           <Grid
             container
+            spacing={0}
+            direction="column"
             justify="center"
             alignItems="center"
-            style={{ marginTop: "20px" }}
+            style={{ minHeight: "100vh" }}
           >
-            <Grid item={true} xs={3} style={{ marginLeft: "12.5%" }}>
+            <Grid item xs={10}>
               <div>How long do you plan on eating for?</div>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Duration</FormLabel>
@@ -303,11 +286,13 @@ class VideoChatPage extends React.Component {
         return (
           <Grid
             container
+            spacing={0}
+            direction="column"
             justify="center"
             alignItems="center"
-            style={{ marginTop: "20px" }}
+            style={{ minHeight: "100vh" }}
           >
-            <Grid item={true} xs={3}>
+            <Grid item xs={10}>
               <div>Pick your preferred lunch meat</div>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Meat</FormLabel>
@@ -336,11 +321,13 @@ class VideoChatPage extends React.Component {
         return (
           <Grid
             container
+            spacing={0}
+            direction="column"
             justify="center"
             alignItems="center"
-            style={{ marginTop: "20px" }}
+            style={{ minHeight: "100vh" }}
           >
-            <Grid item={true} xs={3} style={{ marginLeft: "12%" }}>
+            <Grid item xs={10}>
               <div>Who's your favorite Beatle?</div>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Beatle</FormLabel>
@@ -369,11 +356,15 @@ class VideoChatPage extends React.Component {
         return (
           <Grid
             container
+            spacing={0}
+            direction="column"
             justify="center"
             alignItems="center"
-            style={{ marginTop: "20px" }}
+            style={{ minHeight: "100vh" }}
+            // style={{ marginTop: "20px" }}
+            // className="super-center"
           >
-            <Grid item={true} xs={3}>
+            <Grid item xs={10}>
               <div>I'm eating...</div>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Food</FormLabel>
@@ -400,7 +391,7 @@ class VideoChatPage extends React.Component {
         );
       } else if (status === "getMatched") {
         return (
-          <div className="video-page-container">
+          <div className="super-center">
             <Button
               variant="contained"
               color="secondary"
@@ -413,9 +404,10 @@ class VideoChatPage extends React.Component {
         );
       } else if (status === "matching") {
         return (
-          <div className="video-page-container">
-            <div>
+          <div className="super-center">
+            <div className="center-text">
               <img src={banana} alt="banana spin"></img>
+              <div>Finding you a match</div>
             </div>
           </div>
         );
